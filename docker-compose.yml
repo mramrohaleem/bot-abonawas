@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  bot:
+    build: .
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - COOKIES_ENCRYPTION_KEY=${COOKIES_ENCRYPTION_KEY}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - LOG_FORMAT=${LOG_FORMAT:-json}
+      - LOG_FILE=/app/logs/bot.jsonl
+      - DB_PATH=/app/data/bot.db
+      - ALLOW_YTDLP_AUTOUPDATE=${ALLOW_YTDLP_AUTOUPDATE:-true}
+      - MAX_QUEUE_SIZE=${MAX_QUEUE_SIZE:-300}
+      - MAX_SEARCH_RESULTS=${MAX_SEARCH_RESULTS:-5}
+      - DEFAULT_IDLE_MINUTES=${DEFAULT_IDLE_MINUTES:-10}
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+    restart: unless-stopped
